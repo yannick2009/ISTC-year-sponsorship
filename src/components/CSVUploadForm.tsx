@@ -13,6 +13,7 @@ export const CSVUploadForm: React.FC<CSVUploadFormProps> = ({
   const { CSVReader } = useCSVReader();
   const [parrainsData, setParrainsData] = useState<Person[]>([]);
   const [filleulsData, setFilleulsData] = useState<Person[]>([]);
+  const [filiere, setFiliere] = useState<string>("");
 
   const handleCSVLoad = (results: any, type: "parrains" | "filleuls") => {
     const data = results.data.slice(1).map((row: string[]) => ({
@@ -27,12 +28,17 @@ export const CSVUploadForm: React.FC<CSVUploadFormProps> = ({
   };
 
   const handleSubmit = () => {
-    if (parrainsData.length > 0 && filleulsData.length > 0) {
-      onDataLoaded({ parrains: parrainsData, filleuls: filleulsData });
+    if (parrainsData.length > 0 && filleulsData.length > 0 && filiere !== "") {
+      onDataLoaded({
+        parrains: parrainsData,
+        filleuls: filleulsData,
+        filiere,
+      });
     }
   };
 
-  const isReadyToSubmit = parrainsData.length > 0 && filleulsData.length > 0;
+  const isReadyToSubmit =
+    parrainsData.length > 0 && filleulsData.length > 0 && filiere !== "";
 
   return (
     <div className="space-y-6">
@@ -96,6 +102,25 @@ export const CSVUploadForm: React.FC<CSVUploadFormProps> = ({
             </div>
           )}
         </CSVReader>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold">Filière</h2>
+        <select
+          value={filiere}
+          onChange={(e) => setFiliere(e.currentTarget.value)}
+          className="w-full border-2 border-gray-300 rounded-lg p-3 focus:outline-none focus:border-blue-500 transition-colors">
+          <option value="" disabled>
+            Sélectionnez une filière
+          </option>
+          <option value="EJ">Ecole de journalisme (EJ)</option>
+          <option value="ETTA">Ecole de télécommunications (ETTA)</option>
+          <option value="EPA">Ecole de production audiovisuelle (EPA)</option>
+          <option value="EPM">Ecole de publicité marketing (EPM)</option>
+          <option value="EAIN">
+            Ecole des arts et images numériques (EAIN)
+          </option>
+        </select>
       </div>
 
       <button

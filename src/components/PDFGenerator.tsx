@@ -82,7 +82,7 @@ const PDFDocument: React.FC<PDFDocumentProps> = ({ data }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.title}>Liste des Parrainages</Text>
+        <Text style={styles.title}>Liste des Parrainages - {data.filiere}</Text>
 
         {/* Section des parrainages */}
         <View style={styles.pairingsSection}>

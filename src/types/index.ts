@@ -5,4 +5,5 @@ export interface Person {
 export interface CSVData {
   parrains: Person[];
   filleuls: Person[];
+  filiere: string;
 }

@@ -13,14 +13,22 @@ export function generatePairings(parrains: Person[], filleuls: Person[]) {
   const shuffledFilleuls = shuffleArray([...filleuls]);
   const shuffledParrains = shuffleArray([...parrains]);
 
-  // Répéter les parrains si nécessaire pour couvrir tous les filleuls
-  const extendedParrains = [...shuffledParrains];
-  while (extendedParrains.length < shuffledFilleuls.length) {
-    extendedParrains.push(...shuffledParrains);
+  if (shuffledParrains.length > shuffledFilleuls.length) {
+    const diff = shuffledParrains.length - shuffledFilleuls.length;
+    for (let i = 0; i < diff; i++) {
+      shuffledFilleuls.push(shuffledFilleuls[i]);
+    }
+  }
+
+  if (shuffledFilleuls.length > shuffledParrains.length) {
+    const diff = shuffledFilleuls.length - shuffledParrains.length;
+    for (let i = 0; i < diff; i++) {
+      shuffledParrains.push(shuffledParrains[i]);
+    }
   }
 
   return shuffledFilleuls.map((filleul, index) => ({
-    parrain: extendedParrains[index],
+    parrain: shuffledParrains[index],
     filleul,
   }));
 }

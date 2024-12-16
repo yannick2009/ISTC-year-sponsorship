@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CSVUploadForm } from './components/CSVUploadForm';
 import { PDFGenerator } from './components/PDFGenerator';
 import { Footer } from './components/Footer';
